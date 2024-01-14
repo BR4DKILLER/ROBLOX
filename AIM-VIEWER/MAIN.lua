@@ -8,8 +8,7 @@ repeat wait() until game.Players.LocalPlayer
 local RunTime = loadstring(game:HttpGet("https://raw.githubusercontent.com/BR4DKILLER/ROBLOX/main/AIM-VIEWER/FUNCTIONS"))()
 local Toggle = RunTime["Toggle"]
 
--- [[ BELOW IS JUST DOCUMENTATION
-
+--[[ BELOW IS JUST DOCUMENTATION
 Toggle("Enabled") will Enable & Disable the Aim Viewer.
 Toggle("Target", Player - > Object) Will change the Aim Viewer's target.
 Toggle("Debug") Will Enable debug mode.
