@@ -1,0 +1,158 @@
+-- Variables
+
+local Name = "BodyEffects"
+
+if game.PlaceId == 5602055394 then
+   Name = "I_LOADED_I"
+end
+
+-- Functions
+
+local Ray = function()
+   if workspace.Terrain:FindFirstChild("GUN_RAY") then
+      local GUN_RAY = workspace.Terrain:FindFirstChild("GUN_RAY")
+      if workspace.Terrain:FindFirstChild("ATTACH1") then
+         ATTACH1 = workspace.Terrain:FindFirstChild("ATTACH1")
+      end
+      if workspace.Terrain:FindFirstChild("ATTACH2") then
+         ATTACH2 = workspace.Terrain:FindFirstChild("ATTACH2")
+      end
+      if ATTACH1 ~= nil and ATTACH2 ~= nil and GUN_RAY ~= nil then 
+         return GUN_RAY,ATTACH1,ATTACH2,"SUCCESS"
+      end
+      if GUN_RAY == nil or ATTACH1 == nil or ATTACH2 == nil then
+         return false,false,false,"INVALID BEAM"
+      end
+   end
+   if workspace.Terrain:FindFirstChild("GUN_RAY") or workspace.Terrain:FindFirstChild("ATTACH1") then
+      return false,false,false,"WHAT HAPPENED?"
+   end
+   local GUN_RAY = Instance.new("Beam")
+   GUN_RAY.Name = ("GUN_RAY")
+   GUN_RAY.Segments = 1
+   GUN_RAY.Width0 = 0.150
+   GUN_RAY.Width1 = 0.150
+   GUN_RAY.FaceCamera = true
+   local ATTACH1 = Instance.new("Attachment")
+   local ATTACH2 = Instance.new("Attachment")
+   GUN_RAY.Parent = workspace.Terrain
+   ATTACH1.Parent = workspace.Terrain
+   ATTACH2.Parent = workspace.Terrain
+   ATTACH1.Name = "ATTACH1"
+   ATTACH2.Name = "ATTACH2"
+   GUN_RAY.Attachment0 = ATTACH1
+   GUN_RAY.Attachment1 = ATTACH2 
+   return GUN_RAY,ATTACH1,ATTACH2,"SUCCESS NEW"
+end
+
+local Toggle = function(self)
+   local GUN_RAY,S1,S2,SC = Ray()
+   GUN_RAY.Enabled = self
+   return self
+end
+
+local UpdateTarget = function(self)
+   local GUN_RAY,ATTACH1,ATTACH2 = Ray()
+   if self.Character then
+      local CHARACTER = self.Character
+      if CHARACTER:FindFirstChild(Name) and CHARACTER:FindFirstChild("Head") then
+         local HEAD = CHARACTER:FindFirstChild("HumanoidRootPart")
+         local BODY_EFFECTS = CHARACTER:FindFirstChild(Name)
+         if BODY_EFFECTS:FindFirstChild("MousePos") then
+            Toggle(true)
+            local MOUSE_POS = BODY_EFFECTS:FindFirstChild("MousePos").Value
+            local HEADS_POS = HEAD.Position
+            ATTACH1.Position = HEADS_POS + Vector3.new(0, 1.5, 0)
+            ATTACH2.Position = MOUSE_POS
+            return true
+         end
+      end
+   end
+   return false
+end
+
+local CheckGun = function(self)
+   if self.Character then
+      local CHARACTER = self.Character
+      for i, v in pairs(CHARACTER:GetChildren()) do
+         if v:IsA("Tool") then
+            if v:FindFirstChild("GunScript") or v:FindFirstChild("Ammo") or v:FindFirstChild("MaxAmmo") then
+               return true
+            end
+         end
+      end
+   end
+   return false
+end
+
+-- Services
+
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+
+-- Variables
+
+local Target = nil
+local Enabled = false
+local DebugMode = false
+
+-- Connections
+
+local PlayerRemoveCon; PlayerRemoveCon = Players.PlayerRemoving:Connect(function(self)
+    if Target == self then
+       Target = nil
+    end
+end)
+
+local RunServiceCon; RunServiceCon = RunService.Stepped:Connect(function(...)
+    if Target ~= nil and Enabled then
+       if CheckGun(Target) then
+          local Success = UpdateTarget(Target)
+          if not Success then
+             if DebugMode then
+                warn("AN ERROR OCCURED WITH UPDATING THE TARGET")
+             end
+          end
+       else
+          Toggle(false)
+       end
+    elseif not Enabled or Target == nil then
+       Toggle(false)
+    end
+end)
+
+return {
+ ["Toggle"] = function(self, ...)
+    local Args = {...}
+    if self == "Debug" then
+       DebugMode = not DebugMode
+       warn("Debug", "[DEBUG FLAG]", tostring(DebugMode))
+    elseif self == "Enabled" then
+       Enabled = not Enabled
+       if DebugMode then
+          warn("Debug", "[ENABLED FLAG]", tostring(Enabled))
+       end
+    elseif self == "Target" then
+       if Args[1] ~= nil then
+          local Class;
+          pcall(function(...)
+              Class = Args[1].ClassName
+          end)
+          if DebugMode then
+             warn("Debug", "[CLASS FLAG]", tostring(Class))
+             warn("Debug", "[ARGUMENT FLAG]", tostring(Args[1]))
+          end
+          if Class == nil then
+             Target = nil
+             return 
+          end
+          if Class == "Player" or Class:lower() == "player" then
+              Target = Args[1]
+              if DebugMode then
+                 warn("Debug", "[TARGET FLAG]", tostring(Target))
+              end
+          end
+       end
+    end
+ end
+}
