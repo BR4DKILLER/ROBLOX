@@ -87,4 +87,5 @@ MainModule.SimplePathFind = function(HumanoidRootPart, Humanoid, Object, Setting
    return true, "Succesfully Finished Pathing"
 end
 
+MainModule.Version = 1.1
 return MainModule
