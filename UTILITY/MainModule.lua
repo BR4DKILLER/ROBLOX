@@ -67,15 +67,16 @@ MainModule.SimplePathFind = function(HumanoidRootPart, Humanoid, Object, Setting
                 Humanoid:MoveTo(HumanoidRootPart.Position)
              end
          end)
+         coroutine.resume(Thread)
       end
       
       if Waypoint.Action == Enum.PathWaypointAction.Jump then
          Humanoid.Jump = true
-      else
-         Humanoid:MoveTo(Waypoint.Position)
       end
+    
+      Humanoid:MoveTo(Waypoint.Position)
       Humanoid.MoveToFinished:Wait()
-
+     
       if Timeout then
          break;
       end
