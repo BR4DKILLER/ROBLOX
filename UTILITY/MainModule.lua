@@ -60,6 +60,7 @@ MainModule.SimplePathFind = function(HumanoidRootPart, Humanoid, Object, Setting
       if (Settings["Timeout"] ~= 0 and Settings["Timeout"] > 0) then
          Thread = coroutine.create(function(...)
              for i = 1, Settings["Timeout"] do
+                if Complete then break; end
                 wait(1)
              end
              if not Complete then
