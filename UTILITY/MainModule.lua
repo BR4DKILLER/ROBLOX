@@ -48,7 +48,7 @@ MainModule.SimplePathFind = function(HumanoidRootPart, Humanoid, Object, Setting
          end
       end
       if Path.Status == Enum.PathStatus.NoPath then
-         return false, "Invalid Path, Is Your Position Reachable?
+         return false, "Invalid Path, Is Your Position Reachable?"
       end
    end
 
