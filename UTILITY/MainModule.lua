@@ -21,6 +21,16 @@ MainModule.SimplePathFind = function(HumanoidRootPart, Humanoid, Object, Setting
        ["RetryCount"] = 0,
        ["Timeout"] = 10
       }
+   elseif (Settings ~= nil) then
+      if (type(Settings) ~= "table") then
+          Settings = {
+           ["RetryCount"] = 0,
+           ["Timeout"] = 10
+          }        
+      else
+         if (Settings["RetryCount"] == nil) then Settings["RetryCount"] = 0 end
+         if (Settings["Timeout"] == nil) then Settings["Timeout"] = 10 end
+      end
    end
   
    local SuccessAsync, ErrorAsync = pcall(function(...)
@@ -45,6 +55,32 @@ MainModule.SimplePathFind = function(HumanoidRootPart, Humanoid, Object, Setting
    for Index, Waypoint in ipairs(Path:GetWaypoints()) do
       local Complete = false
       local Timeout = false
+      local Thread;
       
+      if (Settings["Timeout"] ~= 0 and Settings["Timeout"] > 0) then
+         Thread = coroutine.create(function(...)
+             for i = 1, Settings["Timeout"] do
+                wait(1)
+             end
+             if not Complete then
+                Timeout = true
+                Humanoid:MoveTo(HumanoidRootPart.Position)
+             end
+         end)
+      end
+      
+      if Waypoint.Action == Enum.PathWaypointAction.Jump then
+         Humanoid.Jump = true
+      else
+         Humanoid:MoveTo(Waypoint.Position)
+      end
+      Humanoid.MoveToFinished:Wait()
+
+      if Timeout then
+         break;
+      end
+
+      Complete = true
    end
+   return true, "Succesfully Finished Pathing"
 end
