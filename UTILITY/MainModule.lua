@@ -14,7 +14,11 @@ MainModule.AntiAFK = function(...)
 end
 
 MainModule.SimplePathFind = function(HumanoidRootPart, Humanoid, Object, Settings)
-   local Path = GetService("PathfindingService"):CreatePath()
+   local Path = GetService("PathfindingService"):CreatePath({
+		['AgentRadius'] = 5;
+		['AgentHeight'] = 5;
+		['AgentCanJump'] = true;
+	})
   
    if (Settings == nil) then
       Settings = {
@@ -87,5 +91,5 @@ MainModule.SimplePathFind = function(HumanoidRootPart, Humanoid, Object, Setting
    return true, "Succesfully Finished Pathing"
 end
 
-MainModule.Version = 1.1
+MainModule.Version = 1.2
 return MainModule
