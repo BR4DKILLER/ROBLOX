@@ -74,12 +74,12 @@ MainModule.SimplePathFind = function(HumanoidRootPart, Humanoid, Object, Setting
          end)
          coroutine.resume(Thread)
       end
-      
+
+      Humanoid:MoveTo(Waypoint.Position)
       if Waypoint.Action == Enum.PathWaypointAction.Jump then
          Humanoid.Jump = true
       end
     
-      Humanoid:MoveTo(Waypoint.Position)
       Humanoid.MoveToFinished:Wait()
      
       if Timeout then
@@ -91,5 +91,5 @@ MainModule.SimplePathFind = function(HumanoidRootPart, Humanoid, Object, Setting
    return true, "Succesfully Finished Pathing"
 end
 
-MainModule.Version = 1.2
+MainModule.Version = 1.21
 return MainModule
