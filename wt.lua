@@ -341,13 +341,7 @@ local SettingsTable = {
 
 if game.PlaceId == 455366377 then 
 	PartTable = {
-		['ammo'] = workspace:WaitForChild'Buy Ammo | $25';
-		['pipe'] = workspace:WaitForChild'Pipe | $100';
-		['machete'] = workspace:WaitForChild'Machete | $70';
-		['sawedoff'] = workspace:WaitForChild'Sawed Off | $150';
-		['spray'] = workspace:WaitForChild'Spray | $20';
-		['uzi'] = workspace:WaitForChild'Uzi | $150';
-		['glock'] = workspace:WaitForChild'Glock | $200';
+		
 	}
 end 
 
