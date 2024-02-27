@@ -11,7 +11,7 @@ end
 local ValidLevel = function(Level, MinLevel)
    return (Level >= MinLevel)
 end
-  
+
 MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction, HopFunction, TagFunction, CheckTagFunction, LogDroppedFunction)
    for index, item in pairs(DropFolder:GetChildren()) do
       local item_data = GetItemData(item)
