@@ -1,3 +1,5 @@
+local Version = 1
+
 local TagItem = function(Item, Name)
    local Tag = Instance.new("BoolValue")
    Tag.Name = Name
@@ -22,4 +24,4 @@ local LogDroppedItem = function(Data, Valid)
    return true
 end
 
-return TagItem, CheckTag, LogDroppedItem
+return TagItem, CheckTag, LogDroppedItem, Version
