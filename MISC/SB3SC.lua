@@ -1,4 +1,5 @@
 local MainModule = {}
+local Version = 1
 
 local ValidPrice = function(Price, MaxPrice)
     return (MaxPrice >= Price)
@@ -102,4 +103,4 @@ MainModule.HopTimer = function(Settings, HopFunction)
     coroutine.resume(Timer_Thread)
 end
 
-return MainModule
+return MainModule, Version
