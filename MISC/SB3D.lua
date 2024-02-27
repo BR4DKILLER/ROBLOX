@@ -1,4 +1,5 @@
 local Items = {}
+local Version = 1
 
 local AddItem = function(ItemName, MaxPrice, IsMount, MininumMountSpeed)
    if IsMount == nil then
@@ -15,4 +16,4 @@ local AddItem = function(ItemName, MaxPrice, IsMount, MininumMountSpeed)
    return Items[ItemName]
 end
 
-return Items, AddItem
+return Items, AddItem, Version
