@@ -15,9 +15,9 @@ end
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local DropFolder = ReplicatedStorage:WaitForChild("Drops")
 
-MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction, HopFunction, TagFunction, CheckTagFunction, LogDroppedFunction)
+MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction, HopFunction, TagFunction, CheckTagFunction, LogDroppedFunction, GIDFunction)
    for index, item in pairs(DropFolder:GetChildren()) do
-      local item_data = GetItemData(item)
+      local item_data = GIDFunction(item)
       local item_valid = true    
       if not CheckTagFunction(item, "DLogged") then
          TagFunction(item, "DLogged")
