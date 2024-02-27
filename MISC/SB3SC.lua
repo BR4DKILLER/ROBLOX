@@ -1,5 +1,6 @@
 local MainModule = {}
 local Version = 1.1
+local Time = 0
 
 local ValidPrice = function(Price, MaxPrice)
     return (MaxPrice >= Price)
@@ -11,6 +12,14 @@ end
 
 local ValidLevel = function(Level, MinLevel)
     return (Level >= MinLevel)
+end
+
+local IsMinute = function()
+   local Minutes = (Time / 60)
+   if (Minutes % 1) == 0 then
+      return true, Minutes
+   end
+   return false, Mintues
 end
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -86,13 +95,15 @@ end
 
 MainModule.HopTimer = function(Settings, HopFunction)
     if not Settings.HopSettings.HopTimer then return end
-    warn("Hop-Timer started! -", tostring(Settings.HopSettings.HopAfter), "Minutes Remain.")
+    local Minutes = (60 * Settings.HopSettings.HopAfter)
+    warn("Hop-Timer started! -", tostring(Minutes / 60), "Minutes Remain.")
     local Timer_Thread = coroutine.create(function(...)
         if Settings.HopSettings.HopTimer then
-            local Time = 0
             while true do
                 wait(1)
                 Time = Time + 1
+                local IsMin, Min = IsMinute()
+                if IsMin then warn("Hop-Timer:", tostring(Min), "Minutes Remain.") end
                 if Time >= (60 * Settings.HopSettings.HopAfter) then
                    break
                 end
@@ -101,6 +112,11 @@ MainModule.HopTimer = function(Settings, HopFunction)
         end
     end)
     coroutine.resume(Timer_Thread)
+end
+
+MainModule.ResetTimer = function()
+    Timer = 0
+    warn("Reset Hop Timer! - ITEM FOUND")
 end
 
 return MainModule, Version
