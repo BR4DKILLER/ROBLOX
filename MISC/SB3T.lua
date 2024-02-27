@@ -12,8 +12,13 @@ local CheckTag = function(Item, Name)
    return false
 end
 
-local LogDroppedItem = function(Data)
-   warn(Data.Name, "- Price", tostring(Data.Price), "- Level", tostring(Data.Level))
+local LogDroppedItem = function(Data, Valid)
+   if Valid then
+      Valid = "Valid"
+   else
+      Valid = "Invalid"
+   end
+   warn(Data.Name, "- Price", tostring(Data.Price), "- Level", tostring(Data.Level), "-", Valid)
    return true
 end
 
