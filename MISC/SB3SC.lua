@@ -85,7 +85,7 @@ end
 
 MainModule.HopTimer = function(Settings, HopFunction)
     if Settings.HopSettings.HopTimer then return end
-    warn("Hop-Timer started! -", tostring(Settings.HopSettings.HopTimer)), "Minutes Remain.")
+    warn("Hop-Timer started! -", tostring(Settings.HopSettings.HopTimer), "Minutes Remain.")
     local Timer_Thread = coroutine.create(function(...)
         if Settings.HopSettings.HopTimer then
             local Time = 0
