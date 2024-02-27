@@ -1,6 +1,6 @@
 local Items = {}
 
-Items.AddItem = function(ItemName, MaxPrice, IsMount, MininumMountSpeed)
+local AddItem = function(ItemName, MaxPrice, IsMount, MininumMountSpeed)
    if IsMount == nil then
       IsMount = false
    end
@@ -15,4 +15,4 @@ Items.AddItem = function(ItemName, MaxPrice, IsMount, MininumMountSpeed)
    return Items[ItemName]
 end
 
-return Items
+return Items, AddItem
