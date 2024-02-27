@@ -1,5 +1,5 @@
 local MainModule = {}
-local Version = 1.1
+local Version = 1.2
 local Time = 0
 
 local ValidPrice = function(Price, MaxPrice)
@@ -51,8 +51,6 @@ local OpenDevConsole = function()
       return
    end
 end
-
-OpenAutoScroll_DevConsole()
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local DropFolder = ReplicatedStorage:WaitForChild("Drops")
