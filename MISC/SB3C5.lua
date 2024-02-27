@@ -52,7 +52,6 @@ MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction
                      if not ValidPrice(item_data.Price, data.MaxPrice) then
                         item_valid = false
                      end 
-                     warn(item_valid, tostring(item))
                      if item_valid then
                         PurchaseFunction(item)
                         LogFunction(item, tostring(item), tostring(item_data.Price))
@@ -63,6 +62,7 @@ MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction
          end
          
          if item_log then
+            warn(item_data, item_valid)
             LogDroppedFunction(item_data, item_valid)
          end
       end
