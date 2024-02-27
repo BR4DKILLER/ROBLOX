@@ -69,4 +69,8 @@ local ServerHop = function()
    game:GetService("TeleportService"):Teleport(game.PlaceId)
 end
 
-return ReturnItemData, CheckLevel, ServerHop
+local BuyItem = function(Item)
+   BuyRemote:FireServer(Item)
+end
+
+return ReturnItemData, CheckLevel, BuyItem, ServerHop
