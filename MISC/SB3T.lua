@@ -12,4 +12,9 @@ local CheckTag = function(Item, Name)
    return false
 end
 
-return TagItem, CheckTag
+local LogDroppedItem = function(Data)
+   warn(Data.Name, "- Price", tostring(Data.Price), "- Level", tostring(Data.Level))
+   return true
+end
+
+return TagItem, CheckTag, LogDroppedItem
