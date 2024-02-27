@@ -1,12 +1,9 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
-local DropFolder = ReplicatedStorage:WaitForChild("%44%72%6F%70%73")
 local SystemFolder = ReplicatedStorage:WaitForChild("%53%79%73%74%65%6D%73")
-
 local ShopModule = SystemFolder:WaitForChild("%53%68%6F%70%73")
 local BuyRemote = ShopModule:WaitForChild("%42%75%79")
-
 local ItemModule = require(game.ReplicatedStorage.Systems.Items)
 local ItemList = ItemModule.GetItemList()
 
