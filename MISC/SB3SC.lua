@@ -22,6 +22,38 @@ local IsMinute = function()
    return false, Mintues
 end
 
+local GetClient_DeveloperConsole = function()
+   local UI = game:GetService("CoreGui").DevConsoleMaster.DevConsoleWindow.DevConsoleUI
+   local SC = game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
+   local MainView = UI:WaitForChild("MainView", 5)
+   if MainView == nil then
+      return false
+   end
+   return MainView
+end
+
+local OpenDevConsole = function()
+   local MainView = GetClient_DeveloperConsole() 
+   if MainView == false then
+      MainView = GetClient_DeveloperConsole()
+   end
+   if MainView == false then
+      return
+   end
+   local MainClient = MainView:WaitForChild("ClientLog")
+   if MainClient ~= nil then
+      local MainClient = MainView.ClientLog
+      local YCoordinate = (MainClient.CanvasSize.Y.Offset - MainClient.AbsoluteSize.Y)
+      local XCoordinate = 0
+      local Vector = Vector2.new(XCoordinate, YCoordinate)
+      MainClient.CanvasPosition = Vector
+   else
+      return
+   end
+end
+
+OpenAutoScroll_DevConsole()
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local DropFolder = ReplicatedStorage:WaitForChild("Drops")
 
@@ -118,5 +150,7 @@ MainModule.ResetTimer = function()
     Timer = 0
     warn("Reset Hop Timer! - ITEM FOUND")
 end
+
+MainModule.OpenDeveloperConsole = OpenDevConsole
 
 return MainModule, Version
