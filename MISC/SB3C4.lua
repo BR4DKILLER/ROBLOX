@@ -60,10 +60,10 @@ MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction
                   end
                end
             end
-
-            if item_log then
-               LogDroppedFunction(item_data, item_valid)
-            end
+         end
+         
+         if item_log then
+            LogDroppedFunction(item_data, item_valid)
          end
       end
    end
