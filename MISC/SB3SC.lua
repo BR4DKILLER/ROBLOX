@@ -23,7 +23,7 @@ local IsMinute = function()
 end
 
 local GetClient_DeveloperConsole = function()
-   local UI = game:GetService("CoreGui").DevConsoleMaster.DevConsoleWindow.DevConsoleUI
+   local UI = game:GetService("CoreGui"):WaitForChild("DevConsoleMaster"):WaitForChild("DevConsoleWindow"):WaitForChild("DevConsoleUI")
    local SC = game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
    local MainView = UI:WaitForChild("MainView", 5)
    if MainView == nil then
