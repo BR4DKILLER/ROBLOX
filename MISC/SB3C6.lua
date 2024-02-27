@@ -18,6 +18,7 @@ local DropFolder = ReplicatedStorage:WaitForChild("Drops")
 MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction, HopFunction, TagFunction, CheckTagFunction, LogDroppedFunction, GIDFunction)
    for index, item in pairs(DropFolder:GetChildren()) do
       local item_data = GIDFunction(item)
+      local item_found = false
       local item_valid = true    
       local item_log = false
       
@@ -45,19 +46,24 @@ MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction
          if item_valid then
             for i, data in pairs(BuyList) do
                if i:lower() == item_data.Name:lower() then
-                  if data.IsMount then
-                     if not ValidSpeed(item_data.MountSpeed, data.MininumMountSpeed) then
-                        item_valid = false
-                     end
-                     if not ValidPrice(item_data.Price, data.MaxPrice) then
-                        item_valid = false
-                     end 
-                     if item_valid then
-                        PurchaseFunction(item)
-                        LogFunction(item, tostring(item), tostring(item_data.Price))
-                     end
-                  end
-               end
+                   item_found = true
+                   if data.IsMount then
+                      if not ValidSpeed(item_data.MountSpeed, data.MininumMountSpeed) then
+                         item_valid = false
+                      end
+                   end
+                   if not ValidPrice(item_data.Price, data.MaxPrice) then
+                      item_valid = false
+                   end 
+                   if item_valid then
+                      PurchaseFunction(item)
+                      LogFunction(item, tostring(item), tostring(item_data.Price))
+                   end
+                end
+             end
+          end
+            if not item_found then
+               item_valid = false
             end
          end
          
