@@ -12,13 +12,13 @@ local ValidLevel = function(Level, MinLevel)
    return (Level >= MinLevel)
 end
   
-MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction, HopFunction)
+MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction, HopFunction, TagFunction, CheckTagFunction, LogDroppedFunction)
    for index, item in pairs(DropFolder:GetChildren()) do
       local item_data = GetItemData(item)
       local item_valid = true    
-      if not CheckTag(item, "DLogged") then
-         TagItem(item, "DLogged")
-         LogDroppedItem(item_data)
+      if not CheckTagFunction(item, "DLogged") then
+         TagFunction(item, "DLogged")
+         LogDroppedFunction(item_data)
       end
       if not ValidLevel(item_data.Level, Settings.MininumItemLevel) then
          item_valid = false
