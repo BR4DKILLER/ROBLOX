@@ -1,4 +1,5 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local Version = 1
 
@@ -58,8 +59,34 @@ local GetRandomUser = function()
    end
 end
 
-local ServerHop = function()
+local ServerHop = function(BlockLimit)
    local RandomUser = GetRandomUser()
+   local URI_Blocked = ("https://accountsettings.roblox.com/v1/users/get-detailed-blocked-users")
+   local Req_Blocked = syn.request({
+        Url = URI_Blocked,
+        Method = "GET"
+   })
+   local BlockedData;
+   local Success, Error = pcall(function(...)
+        BlockedData = game:GetService("HttpService"):JSONDecode(Req_Blocked.Body)
+   end)
+   if Success then
+      local UBSuccess, UBError = pcall(function(...)
+         if BlockedData.total >= BlockLimit then
+            for i, v in pairs(BlockedData.blockedUsers) do
+               syn.request({
+	         Url = "https://accountsettings.roblox.com/v1/users/" .. tostring(v.userId) .. "/unblock",
+	         Method = "POST"
+	       })
+	    end
+         end
+      end)
+      if UBSuccess then
+         warn("Unblocked all Users!")
+      end
+   elseif not Success then
+      warn("Error Unblocking all Users:", Error)
+   end
    if RandomUser ~= false then
       local URI = ("https://accountsettings.roblox.com/v1/users/"  .. tostring(RandomUser.UserId) .. "/block")
       local Req = syn.request({
