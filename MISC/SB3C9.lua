@@ -77,3 +77,5 @@ MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction
       HopFunction()
    end
 end
+
+return MainModule
