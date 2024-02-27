@@ -19,22 +19,29 @@ MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction
    for index, item in pairs(DropFolder:GetChildren()) do
       local item_data = GIDFunction(item)
       local item_valid = true    
+      local item_log = false
+      
       if not CheckTagFunction(item, "DLogged") then
          TagFunction(item, "DLogged")
-         LogDroppedFunction(item_data)
+         log_item = true
       end
+      
       if not ValidLevel(item_data.Level, Settings.MininumItemLevel) then
          item_valid = false
       end
+      
       if item_valid then
+         
          if item_data.Price == 0 then
             item_valid = false
          end
+         
          if item_data.Price == 1 then
             PurchaseFunction(item)
             LogFunction(item, item_data.Name, tostring(item_data.Price))
             item_valid = false
          end
+         
          if item_valid then
             for i, data in pairs(BuyList) do
                if i:lower() == item_data.Name:lower() then
@@ -51,6 +58,10 @@ MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction
                      end
                   end
                end
+            end
+
+            if item_log then
+               LogDroppedFunction(item_data, item_valid)
             end
          end
       end
