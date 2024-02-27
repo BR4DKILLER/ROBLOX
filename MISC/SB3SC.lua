@@ -1,5 +1,5 @@
 local MainModule = {}
-local Version = 1
+local Version = 1.1
 
 local ValidPrice = function(Price, MaxPrice)
     return (MaxPrice >= Price)
@@ -86,7 +86,7 @@ end
 
 MainModule.HopTimer = function(Settings, HopFunction)
     if not Settings.HopSettings.HopTimer then return end
-    warn("Hop-Timer started! -", tostring(Settings.HopSettings.HopTimer), "Minutes Remain.")
+    warn("Hop-Timer started! -", tostring(Settings.HopSettings.HopAfter), "Minutes Remain.")
     local Timer_Thread = coroutine.create(function(...)
         if Settings.HopSettings.HopTimer then
             local Time = 0
