@@ -23,7 +23,7 @@ MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction
       
       if not CheckTagFunction(item, "DLogged") then
          TagFunction(item, "DLogged")
-         log_item = true
+         item_log = true
       end
       
       if not ValidLevel(item_data.Level, Settings.MininumItemLevel) then
