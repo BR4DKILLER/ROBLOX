@@ -96,14 +96,14 @@ end
 MainModule.HopTimer = function(Settings, HopFunction)
     if not Settings.HopSettings.HopTimer then return end
     local Minutes = (60 * Settings.HopSettings.HopAfter)
-    warn("Hop-Timer started! -", tostring(Minutes / 60), "Minutes Remain.")
+    warn("Hop-Timer started! -", tostring(Minutes / 60), "Minute(s) Remain.")
     local Timer_Thread = coroutine.create(function(...)
         if Settings.HopSettings.HopTimer then
             while true do
                 wait(1)
                 Time = Time + 1
                 local IsMin, Min = IsMinute()
-                if IsMin then warn("Hop-Timer:", tostring(Min), "Minutes Remain.") end
+                if IsMin then warn("Hop-Timer:", tostring(Min), "Minute(s) Passed.") end
                 if Time >= (60 * Settings.HopSettings.HopAfter) then
                    break
                 end
