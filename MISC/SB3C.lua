@@ -24,6 +24,7 @@ MainModule.ScanItems = function(Settings,BuyList,PurchaseFunction,LogFunction,Ho
         local item_found = false
         local item_valid = true
         local item_log = false
+        local item_one = false
 
         if not CheckTagFunction(item, "DLogged") then
             TagFunction(item, "DLogged")
@@ -43,6 +44,7 @@ MainModule.ScanItems = function(Settings,BuyList,PurchaseFunction,LogFunction,Ho
                 PurchaseFunction(item)
                 LogFunction(item, item_data.Name, tostring(item_data.Price))
                 item_valid = false
+                item_one = true
             end
 
             if item_valid then
@@ -69,9 +71,10 @@ MainModule.ScanItems = function(Settings,BuyList,PurchaseFunction,LogFunction,Ho
                 end
             end
 
-            if item_log then
-                warn(item_data, item_valid)
+            if item_log and not item_one then
                 LogDroppedFunction(item_data, item_valid)
+            elseif item_one then
+                LogDroppedFunction(item_data, item_one)
             end
         end
     end
