@@ -12,6 +12,9 @@ local ValidLevel = function(Level, MinLevel)
    return (Level >= MinLevel)
 end
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local DropFolder = ReplicatedStorage:WaitForChild("Drops")
+
 MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction, HopFunction, TagFunction, CheckTagFunction, LogDroppedFunction)
    for index, item in pairs(DropFolder:GetChildren()) do
       local item_data = GetItemData(item)
