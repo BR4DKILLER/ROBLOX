@@ -83,4 +83,22 @@ MainModule.ScanItems = function(Settings,BuyList,PurchaseFunction,LogFunction,Ho
     end
 end
 
+MainModule.HopTimer = function(Settings, HopFunction)
+    if Settings.HopSettings.HopTimer then return end
+    local Timer_Thread = coroutine.create(function(...)
+        if Settings.HopSettings.HopTimer then
+            local Time = 0
+            while true do
+                wait(1)
+                Time = Time + 1
+                if Time >= (60 * Settings.HopSettings.HopAfter) then
+                   break
+                end
+            end
+            HopFunction()
+        end
+    end)
+    coroutine.resume(Timer_Thread)
+end
+
 return MainModule
