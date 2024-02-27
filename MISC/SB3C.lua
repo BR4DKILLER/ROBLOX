@@ -42,6 +42,9 @@ MainModule.ScanItems = function(Settings, BuyList, PurchaseFunction, LogFunction
                      if not ValidSpeed(item_data.MountSpeed, data.MininumMountSpeed) then
                         item_valid = false
                      end
+                     if not ValidPrice(item_data.Price, data.MaxPrice) then
+                        item_valid = false
+                     end                     
                      if item_valid then
                         PurchaseFunction(item)
                         LogFunction(item, tostring(item), tostring(item_data.Price))
