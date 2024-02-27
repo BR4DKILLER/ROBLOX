@@ -1,5 +1,6 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
+local Version = 1
 
 function decodeChar(hex)
 	return string.char(tonumber(hex,16))
@@ -73,4 +74,4 @@ local BuyItem = function(Item)
    BuyRemote:FireServer(Item)
 end
 
-return ReturnItemData, CheckLevel, BuyItem, ServerHop
+return ReturnItemData, CheckLevel, BuyItem, ServerHop, Version
