@@ -50,6 +50,7 @@ local OpenDevConsole = function()
    end
    local MainClient = MainView:WaitForChild("ClientLog")
    if MainClient ~= nil then
+      wait()
       local MainClient = MainView.ClientLog
       local YCoordinate = (MainClient.CanvasSize.Y.Offset - MainClient.AbsoluteSize.Y)
       local XCoordinate = 0
