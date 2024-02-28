@@ -23,8 +23,16 @@ local IsMinute = function()
 end
 
 local GetClient_DeveloperConsole = function()
-   local SC = game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
-   local UI = game:GetService("CoreGui"):WaitForChild("DevConsoleMaster"):WaitForChild("DevConsoleWindow"):WaitForChild("DevConsoleUI")
+   local UI;
+   if game:GetService("CoreGui"):FindFirstChild("DevConsoleMaster") then
+      UI = game:GetService("CoreGui"):WaitForChild("DevConsoleMaster"):WaitForChild("DevConsoleWindow"):WaitForChild("DevConsoleUI")
+   else
+      game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
+      UI = game:GetService("CoreGui"):WaitForChild("DevConsoleMaster"):WaitForChild("DevConsoleWindow"):WaitForChild("DevConsoleUI")
+   end
+   if not UI:FindFirstChild("MainView") then
+      game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
+   end
    local MainView = UI:WaitForChild("MainView", 5)
    if MainView == nil then
       return false
@@ -145,7 +153,7 @@ MainModule.HopTimer = function(Settings, HopFunction)
 end
 
 MainModule.ResetTimer = function()
-    Timer = 0
+    Time = 0
     warn("Reset Hop Timer! - ITEM FOUND")
 end
 
