@@ -52,10 +52,10 @@ local OpenDevConsole = function()
    if MainClient ~= nil then
       wait()
       local MainClient = MainView.ClientLog
-      local YCoordinate = (MainClient.CanvasSize.Y.Offset - MainClient.AbsoluteSize.Y)
-      local XCoordinate = 0
-      local Vector = Vector2.new(XCoordinate, YCoordinate)
       local AutoScroll = coroutine.create(function(...)
+          local YCoordinate = (MainClient.CanvasSize.Y.Offset - MainClient.AbsoluteSize.Y)
+          local XCoordinate = 0
+          local Vector = Vector2.new(XCoordinate, YCoordinate)
           while true do 
              MainClient.CanvasPosition = Vector 
              wait() 
