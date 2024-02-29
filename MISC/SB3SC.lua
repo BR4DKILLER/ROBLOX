@@ -55,7 +55,13 @@ local OpenDevConsole = function()
       local YCoordinate = (MainClient.CanvasSize.Y.Offset - MainClient.AbsoluteSize.Y)
       local XCoordinate = 0
       local Vector = Vector2.new(XCoordinate, YCoordinate)
-      MainClient.CanvasPosition = Vector
+      local AutoScroll = coroutine.create(function(...)
+          while true do 
+             MainClient.CanvasPosition = Vector 
+             wait() 
+          end
+      end)
+      coroutine.resume(AutoScroll)
    else
       return
    end
