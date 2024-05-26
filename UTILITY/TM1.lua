@@ -8,14 +8,14 @@ local GetPlayer = function(String, Exec)
      return Players
   elseif String:lower() == "others" then
      for i, v in pairs(Players) do
-        if v == Exec then
-           table.remove(Players, i)
+        if v ~= Exec then
+           table.insert(Player, v)
            break
         end
      end
-     return Players
+     return Player
   elseif String:lower() == "me" then
-     return Exec
+     return { Exec }
   end
   for i, v in pairs(Players) do
      if string.lower(string.sub(v.DisplayName, 1, string.len(String))) == string.lower(String) then
