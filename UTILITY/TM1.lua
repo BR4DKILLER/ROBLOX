@@ -1,17 +1,30 @@
 -- Core Stuff
 
 local Event = game:GetService("ReplicatedStorage"):WaitForChild("Event")
-local GetPlayer = function(String)
-  local Player, Success = nil, false
+local GetPlayer = function(String, Exec)
+  local Player, Success = { }, false
   local Players = game:GetService("Players"):GetPlayers()
+  if String:lower() == "all" then
+     return Players
+  elseif String:lower() == "others" then
+     for i, v in pairs(Players) do
+        if v == Exec then
+           table.remove(Players, i)
+           break
+        end
+     end
+     return Players
+  elseif String:lower() == "me" then
+     return Exec
+  end
   for i, v in pairs(Players) do
      if string.lower(string.sub(v.DisplayName, 1, string.len(String))) == string.lower(String) then
-        Player = v
+        table.insert(Player, v)
         Success = true
         break
      end
      if string.lower(string.sub(v.Name, 1, string.len(String))) == string.lower(String) then
-        Player = v
+        table.insert(Player, v)
         Success = true
         break
      end
@@ -52,7 +65,7 @@ end
 -- Commands
 
 AddCommand("Kill", function(Args)
-    local GetPlayerInstance, Targets = GetPlayer(tostring(Args[1]))
+    local GetPlayerInstance, Targets = GetPlayer(tostring(Args[1]), Args.Original_Executor)
     if GetPlayerInstance then
        for _, PlayerInstance in pairs(Targets) do
           if PlayerInstance.Character then
@@ -68,7 +81,7 @@ AddCommand("Kill", function(Args)
 end)
 
 AddCommand("Loopkill", function(Args)
-    local GetPlayerInstance, Targets = GetPlayer(tostring(Args[1]))
+    local GetPlayerInstance, Targets = GetPlayer(tostring(Args[1]), Args.Original_Executor)
     if GetPlayerInstance then
        for _, PlayerInstance in pairs(Targets) do
           local Folder = Instance.new("Folder")
@@ -79,7 +92,7 @@ AddCommand("Loopkill", function(Args)
 end)
 
 AddCommand("Unloopkill", function(Args)
-    local GetPlayerInstance, Targets = GetPlayer(tostring(Args[1]))
+    local GetPlayerInstance, Targets = GetPlayer(tostring(Args[1]), Args.Original_Executor)
     if GetPlayerInstance then
        for _, PlayerInstance in pairs(Targets) do
           if PlayerInstance:FindFirstChild("LK") then
@@ -90,7 +103,7 @@ AddCommand("Unloopkill", function(Args)
 end)
 
 AddCommand("God", function(Args)
-    local GetPlayerInstance, Targets = GetPlayer(tostring(Args[1]))
+    local GetPlayerInstance, Targets = GetPlayer(tostring(Args[1]), Args.Original_Executor)
     if GetPlayerInstance then  
        for _, PlayerInstance in pairs(Targets) do
           if PlayerInstance.Character then
@@ -106,7 +119,7 @@ AddCommand("God", function(Args)
 end)
 
 AddCommand("Whitelist", function(Args)
-    local GetPlayerInstance, PlayerInstance = GetPlayer(tostring(Args[1]))
+    local GetPlayerInstance, Targets = GetPlayer(tostring(Args[1]), Args.Original_Executor)
     if GetPlayerInstance then
        for _, PlayerInstance in pairs(Targets) do
           table.insert(Whitelist, PlayerInstance.UserId)
@@ -155,4 +168,4 @@ local LKThread_Instance = coroutine.resume(LKThread)
 
 -- Fin
 
-print("LOADED! - V1.1")
+print("LOADED! - V1.2")
