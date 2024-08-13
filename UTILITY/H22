@@ -40,6 +40,7 @@ while true do
       warn("Attempting to teleport to", tostring(Servers.data[i].id))
       local Server = Servers.data[i]
       TPS:TeleportToPlaceInstance(_place, Server.id, Player)
+      wait()
    end
    wait()
 end
