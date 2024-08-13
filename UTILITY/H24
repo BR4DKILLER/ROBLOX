@@ -42,6 +42,7 @@ for i, v in pairs(Servers.data) do
       table.remove(Servers, i)
    end
 end
+warn("V1 - COMPLETED.")
 while true do
    for i = 1, #ValidServers do
       warn("Attempting to teleport to", tostring(ValidServers[i].id))
