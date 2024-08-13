@@ -1,4 +1,5 @@
 -- was too lazy to make one so i just stole this one... idk if it even works dude!?
+-- future brad here, i edited it!
 
 local Player = game.Players.LocalPlayer    
 local Http = game:GetService("HttpService")
