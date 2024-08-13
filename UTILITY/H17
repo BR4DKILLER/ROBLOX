@@ -30,11 +30,13 @@ else
    warn("Updated Previous Data:", tostring(game:GetService("HttpService"):JSONEncode(PreviousServerData)))
 end
 for i, v in pairs(Servers.data) do
+   for z, x in pairs(v) do warn(i,v) end
    if table.find(PreviousServerData, tostring(v.id)) then
       warn("Removed Index", tostring(i), "[", tostring(v.id), "]", "As it was a previous server.")
       table.remove(Servers, i)
    end
 end
+if true then return; end
 while true do
    local Server = Servers.data[math.random(1,#Servers.data)]
    TPS:TeleportToPlaceInstance(_place, Server.id, Player)
