@@ -8,7 +8,7 @@ local Api = "https://games.roblox.com/v1/games/"
 
 local _place,_id = game.PlaceId, game.JobId
 -- Asc for lowest player count, Desc for highest player count
-local _servers = Api.._place.."/servers/Public?sortOrder=Desc&limit=100"
+local _servers = Api.._place.."/servers/Public?sortOrder=" .. tostring(_G.Mode) .. "&limit=100"
 function ListServers(cursor)
    local Raw = game:HttpGet(_servers .. ((cursor and "&cursor="..cursor) or ""))
    return Http:JSONDecode(Raw)
@@ -42,7 +42,7 @@ for i, v in pairs(Servers.data) do
       table.remove(Servers, i)
    end
 end
-warn("V1 - COMPLETED.")
+warn("V1.1 - COMPLETED.")
 while true do
    for i = 1, #ValidServers do
       warn("Attempting to teleport to", tostring(ValidServers[i].id))
