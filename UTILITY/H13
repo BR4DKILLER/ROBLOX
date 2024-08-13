@@ -27,7 +27,6 @@ else
    table.insert(PreviousServerData, tostring(game.JobId))
 end
 for i, v in pairs(Servers.data) do
-   warn(v.id)
    if table.find(PreviousServerData, tostring(v.id)) then
       warn("Removed Index", tostring(i), "[", tostring(v.id), "]", "As it was a previous server.")
       table.remove(Servers, i)
