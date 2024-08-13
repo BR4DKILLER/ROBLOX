@@ -37,6 +37,7 @@ for i, v in pairs(Servers.data) do
 end
 while true do
    for i = 1, #Servers.data do
+      warn("Attempting to teleport to Servers.data[i].id)
       local Server = Servers.data[i]
       TPS:TeleportToPlaceInstance(_place, Server.id, Player)
    end
