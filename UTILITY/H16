@@ -27,6 +27,7 @@ if not SuccessRet then
 else
    table.insert(PreviousServerData, tostring(game.JobId))
    writefile("Previous.json", game:GetService("HttpService"):JSONEncode(PreviousServerData))
+   warn("Updated Previous Data:", tostring(game:GetService("HttpService"):JSONEncode(PreviousServerData)))
 end
 for i, v in pairs(Servers.data) do
    if table.find(PreviousServerData, tostring(v.id)) then
