@@ -30,7 +30,7 @@ else
    warn("Updated Previous Data:", tostring(game:GetService("HttpService"):JSONEncode(PreviousServerData)))
 end
 for i, v in pairs(Servers.data) do
-   for z, x in pairs(v) do warn(i,v) end
+   for z, x in pairs(v) do warn(z,x) end
    if table.find(PreviousServerData, tostring(v.id)) then
       warn("Removed Index", tostring(i), "[", tostring(v.id), "]", "As it was a previous server.")
       table.remove(Servers, i)
