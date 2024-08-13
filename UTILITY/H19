@@ -36,7 +36,9 @@ for i, v in pairs(Servers.data) do
    end
 end
 while true do
-   local Server = Servers.data[math.random(1,#Servers.data)]
-   TPS:TeleportToPlaceInstance(_place, Server.id, Player)
+   for i = 1, #Servers.data do
+      local Server = Servers.data[i]
+      PS:TeleportToPlaceInstance(_place, Server.id, Player)
+   end
    wait()
 end
