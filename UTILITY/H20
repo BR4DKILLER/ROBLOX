@@ -38,7 +38,7 @@ end
 while true do
    for i = 1, #Servers.data do
       local Server = Servers.data[i]
-      PS:TeleportToPlaceInstance(_place, Server.id, Player)
+      TPS:TeleportToPlaceInstance(_place, Server.id, Player)
    end
    wait()
 end
