@@ -28,10 +28,14 @@ else
    table.insert(PreviousServerData, tostring(game.JobId))
    writefile("Previous.json", game:GetService("HttpService"):JSONEncode(PreviousServerData))
    warn("Updated Previous Data:", tostring(game:GetService("HttpService"):JSONEncode(PreviousServerData)))
-end
+end                                                                                                                                                                                
 for i, v in pairs(Servers.data) do
    if table.find(PreviousServerData, tostring(v.id)) then
       warn("Removed Index", tostring(i), "[", tostring(v.id), "]", "As it was a previous server.")
+      table.remove(Servers, i) 
+   end
+   if tostring(v.id) == game.JobId then
+      warn("Removed Index", tostring(i), "[", tostring(v.id), "]", "Because it is the current server.")
       table.remove(Servers, i)
    end
 end
