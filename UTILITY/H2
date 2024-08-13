@@ -1,3 +1,5 @@
+-- was too lazy to make one so i just stole this one... idk if it even works dude!?
+
 local Player = game.Players.LocalPlayer    
 local Http = game:GetService("HttpService")
 local TPS = game:GetService("TeleportService")
