@@ -26,13 +26,14 @@ if not SuccessRet then
 else
    table.insert(PreviousServerData, tostring(game.JobId))
 end
-for i, v in pairs(Servers) do
+--[[for i, v in pairs(Servers) do
    warn(v)
    if table.find(PreviousServerData, tostring(v.data.id)) then
       warn("Removed", tostring(i), "As it was a previous server.")
       table.remove(Servers, i)
    end
-end
+end]]
+warn(Servers.data)
 while true do
    local Server = Servers.data[math.random(1,#Servers.data)]
    TPS:TeleportToPlaceInstance(_place, Server.id, Player)
