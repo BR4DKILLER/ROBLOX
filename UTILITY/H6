@@ -15,6 +15,23 @@ end
 time_to_wait = 0 --seconds
 local Servers = ListServers()
 local Server = Servers.data[math.random(1,#Servers.data)]
+local PreviousServerData = {}
+local SuccessRet, Error = pcall(function(...)
+    PreviousServerData = game:GetService("HttpService"):JSONDecode(readfile("Previous.json"))
+end)
+if not SuccessRet then
+   local SuccessWri, Error = pcall(function(...)
+       writefile("Previous.json", game:GetService("HttpService"):JSONEncode({game.JobId}))
+   end)
+else
+   table.insert(PreviousServerData, tostring(game.JobId))
+end
+for i, v in pairs(Servers) do
+   if table.find(PreviousServerData, tostring(v.data.id)) then
+      warn("Removed", tostring(i), "As it was a previous server.")
+      table.remove(Servers, i)
+   end
+end
 while true do
    local Server = Servers.data[math.random(1,#Servers.data)]
    TPS:TeleportToPlaceInstance(_place, Server.id, Player)
