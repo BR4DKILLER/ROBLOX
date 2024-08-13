@@ -14,6 +14,7 @@ function ListServers(cursor)
    return Http:JSONDecode(Raw)
 end
 time_to_wait = 0 --seconds
+local ValidServers = {}
 local Servers = ListServers()
 local Server = Servers.data[math.random(1,#Servers.data)]
 local PreviousServerData = {}
@@ -33,6 +34,8 @@ for i, v in pairs(Servers.data) do
    if table.find(PreviousServerData, tostring(v.id)) then
       warn("Removed Index", tostring(i), "[", tostring(v.id), "]", "As it was a previous server.")
       table.remove(Servers, i) 
+   else
+      table.insert(ValidServers, v)
    end
    if tostring(v.id) == game.JobId then
       warn("Removed Index", tostring(i), "[", tostring(v.id), "]", "Because it is the current server.")
@@ -40,9 +43,9 @@ for i, v in pairs(Servers.data) do
    end
 end
 while true do
-   for i = 1, #Servers.data do
-      warn("Attempting to teleport to", tostring(Servers.data[i].id))
-      local Server = Servers.data[i]
+   for i = 1, #ValidServers do
+      warn("Attempting to teleport to", tostring(ValidServers[i].id))
+      local Server = ValidServers[i]
       TPS:TeleportToPlaceInstance(_place, Server.id, Player)
       wait()
    end
