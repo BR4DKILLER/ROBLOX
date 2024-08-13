@@ -26,13 +26,13 @@ if not SuccessRet then
 else
    table.insert(PreviousServerData, tostring(game.JobId))
 end
---[[for i, v in pairs(Servers) do
-   warn(v)
-   if table.find(PreviousServerData, tostring(v.data.id)) then
+for i, v in pairs(Servers.data) do
+   warn(v.id)
+   if table.find(PreviousServerData, tostring(v.id)) then
       warn("Removed", tostring(i), "As it was a previous server.")
       table.remove(Servers, i)
    end
-end]]
+end
 warn(Servers.data)
 if true then return; end
 while true do
