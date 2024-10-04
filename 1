@@ -1,0 +1,13 @@
+local A = 0
+local B = game.Players.LocalPlayer.Backpack
+for i, v in pairs(B:GetChildren()) do
+   if tostring(v) == "\83\116\111\109\112\45\69\102\102\101\99\116\45\67\111\100\101" then
+      A = A + 1
+   end
+end
+for i, v in pairs(B:GetChildren()) do
+   if tostring(v) == "\83\116\114\101\97\107\45\84\97\103\45\67\111\100\101" then
+      A = A + 1
+   end
+end
+return A
