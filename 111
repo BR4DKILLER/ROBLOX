@@ -126,9 +126,10 @@ CloseButton.MouseButton1Click:Connect(function()
     ScreenGui:Destroy()
 end)
 
-local function logAnimation(animId)
+local function logAnimation(animId, track_name, animation_name)
     local formattedId = "rbxassetid://" .. animId:match("%d+")
-
+    track_name = tostring(track_name);
+    animation_name = tostring(animation_name);
     for _, child in pairs(LogFrame:GetChildren()) do
         if child:IsA("TextLabel") and child.Text == formattedId then
             return
@@ -141,7 +142,7 @@ local function logAnimation(animId)
 
     local Label = Instance.new("TextLabel", AnimRow)
     Label.Size = UDim2.new(0.7, 0, 1, 0)
-    Label.Text = formattedId
+    Label.Text = `{track_name} ({animation_name}) - {formattedId}`
     Label.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     Label.TextColor3 = Color3.new(1, 1, 1)
 
@@ -162,7 +163,7 @@ for _, a in workspace:GetDescendants() do
    if a:IsA('Animator') then
        a.AnimationPlayed:Connect(function(track)
            if track and track.Animation then
-              logAnimation(track.Animation.AnimationId)
+              logAnimation(track.Animation.AnimationId, track.Name, track.Animation.Name);
            end
        end)
    end
