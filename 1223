@@ -126,7 +126,10 @@ CloseButton.MouseButton1Click:Connect(function()
     ScreenGui:Destroy()
 end)
 
+local Logged = {}
 local function logAnimation(animId, track_name, animation_name)
+    if table.find(Logged, animId) then return end
+    table.insert(Logged, animId);
     local formattedId = "rbxassetid://" .. animId:match("%d+")
     track_name = tostring(track_name);
     animation_name = tostring(animation_name);
@@ -206,4 +209,4 @@ StopButton.MouseButton1Click:Connect(function()
     end
 end)
 
-warn('v2')
+warn('v3')
