@@ -5,7 +5,7 @@ local Humanoid = Character:FindFirstChildOfClass("Humanoid")
 local Animator = Humanoid and Humanoid:FindFirstChildOfClass("Animator")
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Parent = game.CoreGui
 
 local Frame = Instance.new("Frame", ScreenGui)
 Frame.Size = UDim2.new(0, 350, 0, 300)
