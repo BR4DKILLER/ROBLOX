@@ -163,6 +163,8 @@ local function logAnimation(Name, animId, track_name, animation_name)
     LogFrame.CanvasSize = UDim2.new(0, 0, 0, UIList.AbsoluteContentSize.Y)
 end
 
+local All = false
+if All then
 for _, a in workspace:GetDescendants() do
    if a:IsA('Animator') then
        a.AnimationPlayed:Connect(function(track)
@@ -171,6 +173,17 @@ for _, a in workspace:GetDescendants() do
            end
        end)
    end
+end
+else
+for _, a in game.Players.LocalPlayer.Character:GetDescendants() do
+   if a:IsA('Animator') then
+       a.AnimationPlayed:Connect(function(track)
+           if track and track.Animation then
+              logAnimation(tostring(a.Parent), track.Animation.AnimationId, track.Name, track.Animation.Name);
+           end
+       end)
+   end
+end
 end
 
 local currentTrack
