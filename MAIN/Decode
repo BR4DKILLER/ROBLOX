@@ -1,16 +1,50 @@
 local DecodeTable = {[157] = 'A',[4451] = 'B',[2453] = 'C',[6028] = 'D',[3757] = 'E',[6453] = 'F',[2937] = 'G',[7753] = 'H',[9595] = 'I',[1659] = 'J',[261] = 'K',[165] = 'L',[8586] = 'M',[8118] = 'N',[8069] = 'O',[4149] = 'P',[8121] = 'Q',[7671] = 'R',[2220] = 'S',[4497] = 'T',[3734] = 'U',[3461] = 'V',[3204] = 'W',[4012] = 'X',[6044] = 'Y',[221] = 'Z',[482] = 'a',[9343] = 'b',[3180] = 'c',[6210] = 'd',[2347] = 'e',[6363] = 'f',[2615] = 'g',[6458] = 'h',[5160] = 'i',[73] = 'j',[1563] = 'k',[6001] = 'l',[6104] = 'm',[9377] = 'n',[8370] = 'o',[1645] = 'p',[5353] = 'q',[5004] = 'r',[9822] = 's',[5382] = 't',[5421] = 'u',[3276] = 'v',[7193] = 'w',[6338] = 'x',[4851] = 'y',[1930] = 'z'}
 local Result = ''
 
-return function(Text: string, Seperator: string)
+local function UnShuffle(String: string, Seed: number)
+	math.randomseed(Seed)
+
+	local Characters = string.split(String, '')
+	local Order = {}
+
+	for i = 1, #Characters do
+		Order[i] = i
+	end
+
+	for i = #Order, 2, -1 do
+		local j = math.random(1, i)
+		Order[i], Order[j] = Order[j], Order[i]
+	end
+
+	local UnShuffled = table.create(#Characters)
+	for i = 1, #Order do
+		UnShuffled[Order[i]] = Characters[i]
+	end
+
+	return table.concat(UnShuffled)
+end
+
+return function(Text: string, Seperator: string, Reverse: boolean, Seed: number)
 	Text = tostring(Text)
-	Seperator = (Seperator and tostring(Seperator)) or tostring('XYZDBAUYHCLLZKXYHCUNMQ')
-
-	Text = string.split(Text, Seperator)
+	Seperator = (typeof(Seperator) == 'table' and Seperator) or (Seperator and tostring(Seperator)) or tostring('XYZDBAUYHCLLZKXYHCUNMQ')
+	
+	Text = UnShuffle(Text, Seed or os.time())
+	
+	if typeof(Seperator) == 'table' then
+		for _, Entry in Seperator do
+			Text = string.gsub(Text, Entry, 'DefaultSeperator')
+		end
+		
+		Text = string.split(Text, 'DefaultSeperator')
+	else
+		Text = string.split(Text, Seperator)
+	end
+	
 	Result = ''
-
 	for Index = 1, #Text do
 		Result ..= ((DecodeTable[tonumber(Text[Index])] or Text[Index]))
 	end
-
+	
+	Result = (Reverse and Result:reverse()) or Result
 	return Result, Seperator
 end
