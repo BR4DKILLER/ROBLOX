@@ -1,1 +1,15 @@
 
+local EncodeTable = {['A'] = 157,['B'] = 4451,['C'] = 2453,['D'] = 6028,['E'] = 3757,['F'] = 6453,['G'] = 2937,['H'] = 7753,['I'] = 9595,['J'] = 1659,['K'] = 261,['L'] = 165,['M'] = 8586,['N'] = 8118,['O'] = 8069,['P'] = 4149,['Q'] = 8121,['R'] = 7671,['S'] = 2220,['T'] = 4497,['U'] = 3734,['V'] = 3461,['W'] = 3204,['X'] = 4012,['Y'] = 6044,['Z'] = 221,['a'] = 482,['b'] = 9343,['c'] = 3180,['d'] = 6210,['e'] = 2347,['f'] = 6363,['g'] = 2615,['h'] = 6458,['i'] = 5160,['j'] = 73,['k'] = 1563,['l'] = 6001,['m'] = 6104,['n'] = 9377,['o'] = 8370,['p'] = 1645,['q'] = 5353,['r'] = 5004,['s'] = 9822,['t'] = 5382,['u'] = 5421,['v'] = 3276,['w'] = 7193,['x'] = 6338,['y'] = 4851,['z'] = 1930}
+local Result = ''
+
+return function(Text: string, Seperator: string)
+    Text = tostring(Text)
+    Seperator = (Seperator and tostring(Seperator)) or tostring('XYZDBAUYHCLLZKXYHCUNMQ')
+
+    Result = ''
+    for Index = 1, string.len(Text) do
+        Result ..= (Seperator .. (EncodeTable[Text:sub(Index, Index)] or Text:sub(Index, Index)))
+    end
+
+    return Result, Seperator
+end
