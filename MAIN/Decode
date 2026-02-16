@@ -2,15 +2,15 @@ local DecodeTable = {[157] = 'A',[4451] = 'B',[2453] = 'C',[6028] = 'D',[3757] =
 local Result = ''
 
 return function(Text: string, Seperator: string)
-    Text = tostring(Text)
-    Seperator = (Seperator and tostring(Seperator)) or tostring('XYZDBAUYHCLLZKXYHCUNMQ')
+	Text = tostring(Text)
+	Seperator = (Seperator and tostring(Seperator)) or tostring('XYZDBAUYHCLLZKXYHCUNMQ')
 
-    Text = string.split(Text, Seperator)
-    Result = ''
+	Text = string.split(Text, Seperator)
+	Result = ''
 
-    for Index = 1, #Text do
-        Result ..= (Seperator .. (DecodeTable[#Text[Index]] or Text[Index]))
-    end
+	for Index = 1, #Text do
+		Result ..= ((DecodeTable[tonumber(Text[Index])] or Text[Index]))
+	end
 
-    return Result, Seperator
+	return Result, Seperator
 end
